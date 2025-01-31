@@ -5,5 +5,7 @@ plugins {
 }
 dependencies {
     implementation(libs.kotlin.stdlib)
+    implementation(libs.coroutines.core)
+    implementation("javax.inject:javax.inject:1")
 }
 
