@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
     kotlin ("android")
     kotlin("kapt")
-    alias(libs.plugins.hilt)
 }
 
 android {
@@ -29,9 +30,19 @@ dependencies {
     implementation(project(":domain"))
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
     // Retrofit and OkHttp
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.compiler)
+
+
+    // Hilt Testing
+    /*androidTestImplementation(libs.hilt.android.testing.v244)
+    kaptAndroidTest(libs.hilt.android.compiler)*/
+    //testKapt("com.google.dagger:hilt-android-compiler:2.44")
 }

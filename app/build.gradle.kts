@@ -1,9 +1,10 @@
-import com.android.build.api.dsl.Lint
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
     kotlin("kapt")
     alias(libs.plugins.hilt)
 }

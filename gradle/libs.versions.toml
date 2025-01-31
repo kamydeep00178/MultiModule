@@ -1,31 +1,38 @@
 [versions]
 agp = "8.7.3"
-kotlin = "1.8.22"
+hiltAndroidTesting = "2.54"
+hiltAndroidTestingVersion = "2.54"
+kotlin = "2.0.0"
 androidGradlePlugin = "8.0.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.04.01"
+activityCompose = "1.10.0"
+composeBom = "2025.01.01"
 multidex = "2.0.1"
-room = "2.5.0"
-hilt = "2.44"
-hilt-navigation-compose = "1.0.0"
-retrofit = "2.9.0"
-okhttp = "4.9.3"
-coroutines = "1.6.4"
-fragmentKtx = "1.5.7"
+room = "2.6.1"
+hilt = "2.54"
+hilt-navigation-compose = "1.2.0"
+retrofit = "2.11.0"
+okhttp = "4.12.0"
+coroutines = "1.10.1"
+fragmentKtx = "1.8.5"
 appcompat = "1.7.0"
 material = "1.12.0"
-composeCompiler = "1.4.0"
+composeCompiler = "1.5.15"
 runtimeAndroid = "1.7.7"
 storage = "1.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidTestingVersion" }
+#noinspection SimilarGradleDependency
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltAndroidTesting" }
+#noinspection SimilarGradleDependency
+hilt-android-testing-v244 = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltAndroidTestingVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -59,9 +66,13 @@ androidx-compose-compiler = { group = "androidx.compose.compiler", name = "compi
 androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
 androidx-storage = { group = "androidx.test.services", name = "storage", version.ref = "storage" }
 [plugins]
+
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library" }
-compose = { id = "org.jetbrains.compose", version = "1.5.0" }
+compose = { id = "org.jetbrains.compose", version = "1.7.0" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 hilt = { id = "dagger.hilt.android.plugin"}

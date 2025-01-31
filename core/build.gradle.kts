@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.androidLibrary)
     kotlin ("android")
     kotlin("kapt")
+    /*alias(libs.plugins.compose)
+  alias(libs.plugins.compose.compiler)*/
 }
 
 android {
@@ -38,6 +40,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+   // implementation(libs.androidx.compose.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
