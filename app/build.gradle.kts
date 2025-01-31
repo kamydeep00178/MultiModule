@@ -55,7 +55,8 @@ dependencies {
 
     implementation(project(":domain"))
     implementation(project(":data"))
-    implementation(project(":presentation"))
+    implementation(project(":features"))
+    implementation(project(":features:home"))
     implementation(project(":core"))
     implementation(project(":core:ui"))
 

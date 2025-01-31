@@ -22,6 +22,7 @@ rootProject.name = "MultiModuleProject"
 include(":app")
 include(":data")
 include(":domain")
-include(":presentation")
+include(":features")
 include(":core")
 include(":core:ui")
+include(":features:home")

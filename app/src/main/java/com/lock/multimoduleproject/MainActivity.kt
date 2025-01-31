@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.lock.multimoduleproject.navigation.AppScreen
 import com.lock.multimoduleproject.ui.theme.MultiModuleProjectTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,9 +24,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             MultiModuleProjectTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreenContent(
+                    AppScreen(modifier = Modifier.padding(innerPadding))
+                   /* MainScreenContent(
                         modifier = Modifier.padding(innerPadding)
-                    )
+                    )*/
                 }
             }
         }
