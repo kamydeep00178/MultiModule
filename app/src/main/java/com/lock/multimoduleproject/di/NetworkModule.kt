@@ -39,6 +39,7 @@ class NetworkModule {
         .build()
 
     @Provides
+    @Singleton
     fun providesApiService(retrofit: Retrofit): PostService =
         retrofit.create(PostService::class.java)
 }
