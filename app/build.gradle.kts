@@ -56,6 +56,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":presentation"))
     implementation(project(":core"))
+    implementation(project(":core:ui"))
 
     implementation(libs.androidx.multidex)
 
