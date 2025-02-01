@@ -13,7 +13,7 @@ fun AppScreen(modifier: Modifier) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController, appItems = Destination.toList) },
         content = { padding ->
-            Box(modifier = Modifier.padding(padding)) {
+            Box(modifier = modifier.padding(padding)) {
                 AppNavigation(navController = navController)
             }
         }

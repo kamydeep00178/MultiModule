@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,8 +24,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MultiModuleProjectTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AppScreen(modifier = Modifier.padding(innerPadding))
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    AppScreen(modifier = Modifier)
                    /* MainScreenContent(
                         modifier = Modifier.padding(innerPadding)
                     )*/
