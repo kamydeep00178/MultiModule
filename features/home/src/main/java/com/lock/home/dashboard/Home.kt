@@ -2,21 +2,11 @@ package com.lock.home.dashboard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,6 +25,10 @@ import com.lock.ui.loader.CircularLoader
 fun Home(viewModel: HomeViewModel = hiltViewModel(), modifier: Modifier = Modifier) {
 
     val postData by viewModel.postList.collectAsState()
+
+    val categoryList = viewModel.getCategories()
+
+    val selectedCategory by viewModel.selectedCategory.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.getPosts()
@@ -49,7 +42,12 @@ fun Home(viewModel: HomeViewModel = hiltViewModel(), modifier: Modifier = Modifi
         is Resource.Success -> {
             HomeScreen(
                 modifier = modifier,
-                post = (postData as Resource.Success<List<Post>>).data
+                post = (postData as Resource.Success<List<Post>>).data,
+                categoryList = categoryList,
+                selectedCategory = selectedCategory,
+                onCategorySelected = {
+                    viewModel.selectedCategory(it)
+                }
             )
         }
 
@@ -62,11 +60,24 @@ fun Home(viewModel: HomeViewModel = hiltViewModel(), modifier: Modifier = Modifi
 @Composable
 fun HomeScreen(
     modifier: Modifier,
-    post: List<Post>? = null
+    post: List<Post>? = null,
+    categoryList : List<String>? = null,
+    selectedCategory: String? = null,
+    onCategorySelected : (String) -> Unit = {}
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         AppBarWithCenterText()
-        LazyColumn {
+        LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
+            item{
+                HorizontalViewPagerWithAnimationAndImages()
+            }
+            item{
+                CategoryChip(
+                    categoriesList =   categoryList,
+                    selectedCategory = selectedCategory,
+                    onCategorySelected = onCategorySelected
+                )
+            }
             items(post!!) { post ->
                 PostContent(post = post, modifier = modifier)
             }
@@ -99,40 +110,3 @@ fun PostContent(post: Post, modifier: Modifier) {
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AppBarWithCenterText() {
-    TopAppBar(
-        title =
-        {
-            Column {
-                Text(
-                    text = "Your Location",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontSize = 12.sp,
-                    color = Color.Gray
-                )
-                Text(
-                    text = "Mohali, Punjab",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontSize = 14.sp,
-                    color = Color.Black
-                )
-            }
-        },
-        navigationIcon = {
-            IconButton(onClick = { /* Handle back button click */ }) {
-                Icon(Icons.Filled.Search, contentDescription = "Search")
-            }
-        },
-        actions = {
-            IconButton(onClick = { /* Handle more options click */ }) {
-                Icon(Icons.Filled.ShoppingCart, contentDescription = "Cart")
-            }
-        },
-        modifier = Modifier.fillMaxWidth(),
-        windowInsets = WindowInsets(top = 1.dp)
-    )
-}

@@ -22,6 +22,10 @@ class HomeViewModel  @Inject constructor(
     private val _postList = MutableStateFlow<Resource<List<Post>>>(Resource.Loading())
     val postList: StateFlow<Resource<List<Post>>> = _postList.asStateFlow()
 
+    val _selectedCategory = MutableStateFlow<String>(getCategories().first())
+    val selectedCategory : StateFlow<String> = _selectedCategory
+
+
     fun getPosts() {
         viewModelScope.launch {
             postUseCase.invoke().onStart {
@@ -32,6 +36,12 @@ class HomeViewModel  @Inject constructor(
                 _postList.value = Resource.Success(it)
             }
         }
+    }
+
+    fun getCategories() = listOf("Barger","Pizza","Snacks","Desserts","Drinks")
+
+    fun selectedCategory(item : String) {
+        _selectedCategory.value = item
     }
 
 }

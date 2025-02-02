@@ -52,13 +52,18 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.hilt.android)
-    implementation(libs.androidx.tools.core)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.foundation.layout)
+  //  implementation(libs.androidx.tools.core)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     //room database
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
+
+    implementation("io.coil-kt:coil-compose:2.2.2")
+
     // Retrofit and OkHttp
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
