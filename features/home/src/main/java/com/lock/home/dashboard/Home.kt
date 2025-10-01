@@ -78,6 +78,9 @@ fun HomeScreen(
                     onCategorySelected = onCategorySelected
                 )
             }
+            item {
+                Dishes()
+            }
             items(post!!) { post ->
                 PostContent(post = post, modifier = modifier)
             }
