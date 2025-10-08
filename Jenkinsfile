@@ -9,27 +9,30 @@ pipeline {
 
   options {
     timestamps()
-    // keep logs/artifacts reasonable
     buildDiscarder(logRotator(numToKeepStr: '10'))
   }
 
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'master', url: 'https://github.com/kamydeep00178/MultiModule.git'
+        // if Jenkins pulls from SCM automatically this is optional; kept for clarity
+        checkout([$class: 'GitSCM',
+          branches: [[name: '*/master']],
+          userRemoteConfigs: [[url: 'https://github.com/kamydeep00178/MultiModule.git']]
+        ])
       }
     }
 
     stage('Show env') {
       steps {
-        sh 'echo ANDROID_HOME=$ANDROID_HOME'
+        sh 'echo "ANDROID_HOME=$ANDROID_HOME"'
         sh 'which sdkmanager || true'
-        sh 'sdkmanager --list | head -n 20'
+        sh 'sdkmanager --list | head -n 20 || true'
         sh 'java -version || true'
       }
     }
 
-    stage('Accept licenses & ensure SDK') {
+    stage('Ensure SDK & Licenses') {
       steps {
         sh '''
           export ANDROID_HOME="${ANDROID_HOME}"
@@ -42,9 +45,9 @@ pipeline {
 
     stage('Build') {
       steps {
-        // Prefer wrapper if present
         sh '''
           if [ -x "./gradlew" ]; then
+            chmod +x ./gradlew
             ./gradlew clean assembleDebug --no-daemon --stacktrace
           else
             gradle clean assembleDebug --no-daemon --stacktrace
@@ -53,9 +56,9 @@ pipeline {
       }
     }
 
-    stage('Archive') {
+    stage('Archive APK') {
       steps {
-        // adjust path if your module name differs
+        // adjust glob if module name differs (e.g. myapp)
         archiveArtifacts artifacts: 'app/build/outputs/**/*.apk', fingerprint: true
       }
     }
@@ -63,6 +66,6 @@ pipeline {
 
   post {
     success { echo "Build succeeded" }
-    failure { echo "Build failed — check console output" }
+    failure { echo "Build failed - check console output" }
   }
 }
